@@ -1,0 +1,113 @@
+body {
+    background: radial-gradient(circle at top, #16222A, #0A0F14);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Vazirmatn", sans-serif;
+    color: #fff;
+    overflow: hidden; 
+}
+
+#start-screen {
+    text-align: center;
+}
+
+.title {
+    font-size: 48px;
+    color: #42c6ff;
+    text-shadow: 0 0 20px #14ffff;
+    margin-bottom: 25px;
+}
+
+.btn {
+    padding: 12px 35px;
+    font-size: 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    box-shadow: 0 0 15px #00c6ff;
+    margin-top: 12px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 0 25px #14ffff;
+}
+
+.rules {
+    background: linear-gradient(45deg, #5b7cff, #264bff);
+}
+
+#game-container {
+    display: none;
+    text-align: center;
+    padding: 15px;
+}
+
+#score-board {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.score-box {
+    padding: 8px 20px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+canvas {
+    width: min(90vw, 480px);
+    height: min(90vw, 480px);
+    background-color: #0b1620;
+    background-image:
+        linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
+    background-size: 20px 20px;
+    border: 2px solid #42c6ff;
+    border-radius: 8px;
+    box-shadow:
+        0 0 25px rgba(0,150,255,0.9),
+        inset 0 0 30px rgba(0,180,255,0.12);
+}
+
+#pause-container {
+    margin-top: 15px;
+}
+
+.pause {
+    background: linear-gradient(45deg, #ffaa00, #ff7b00);
+}
+
+#game-over-modal,
+#rules-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box,
+.rules-box {
+    background: #122331;
+    padding: 30px 40px;
+    border-radius: 12px;
+    border: 2px solid #1fbfff;
+    box-shadow: 0 0 25px #00d4ff;
+    text-align: center;
+}
+
+.close,
+.restart {
+    background: linear-gradient(45deg, #ff4b4b, #ff0000);
+}
+
+.home {
+    background: linear-gradient(45deg, #4bff73, #00c94b);
+}
