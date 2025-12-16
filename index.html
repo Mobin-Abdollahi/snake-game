@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="start-screen">
+    <div class="title">🐍 SNAKE GAME</div>
+    <button id="start-btn" class="btn">شروع بازی</button>
+    <button id="rules-btn" class="btn rules">قوانین بازی</button>
+</div>
+
+<div id="game-container">
+    <div id="score-board">
+        <div class="score-box">امتیاز: <span id="score">0</span></div>
+        <div class="score-box">رکورد: <span id="best-score">0</span></div>
+    </div>
+    <canvas id="game" width="480" height="480"></canvas>
+    <div id="pause-container">
+        <button id="pause-btn" class="btn pause">⏸ توقف</button>
+    </div>
+</div>
+
+<div id="game-over-modal">
+    <div class="modal-box">
+        <h2>💀 Game Over</h2>
+        <p>امتیاز: <span id="final-score">0</span></p>
+        <p> بهترین رکورد: <span id="final-best">0</span></p>
+
+        <button id="modal-restart" class="btn restart">دوباره</button>
+        <button id="home-btn" class="btn home">بازگشت به خانه</button>
+    </div>
+</div>
+
+<div id="rules-modal">
+    <div class="rules-box">
+        <h2>📘 قوانین بازی</h2>
+        <p>• فلش‌ها: حرکت مار</p>
+        <p>• هر غذا = +۱ امتیاز</p>
+        <p>• هر ۵ امتیاز: بونس زرد (+۲ امتیاز + طول)</p>
+        <p>• بونس بعد از ۵ ثانیه حذف می‌شود</p>
+        <p>• هر ۳ امتیاز: بمب (برخورد = باخت)</p>
+        <p>• ESC توقف | Enter ادامه</p>
+
+        <button id="rules-close" class="btn close">بستن</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
