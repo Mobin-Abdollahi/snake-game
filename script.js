@@ -1,5 +1,17 @@
+/* ================= AUTH ================= */
+
+const currentUser = localStorage.getItem("currentUser");
+if (!currentUser) location.href = "login.html";
+
+let users = JSON.parse(localStorage.getItem("snake_users")) || {};
+let bestScore = users[currentUser]?.bestScore || 0;
+
+/* ================= CONSTANTS ================= */
+
 const BOARD_SIZE = 480;
 const box = 20;
+
+/* ================= ELEMENTS ================= */
 
 const startScreen = document.getElementById("start-screen");
 const gameContainer = document.getElementById("game-container");
@@ -16,6 +28,8 @@ const gameOverModal = document.getElementById("game-over-modal");
 const finalScoreText = document.getElementById("final-score");
 const finalBestText = document.getElementById("final-best");
 
+/* ================= GAME STATE ================= */
+
 let snake = [];
 let direction = "RIGHT";
 let score = 0;
@@ -23,10 +37,11 @@ let paused = false;
 let bonusTimer;
 let gameLoop;
 
-let bestScore = Number(localStorage.getItem("snake_best")) || 0;
 bestEl.innerText = bestScore;
 
 let food, bonus = null, bomb = null;
+
+/* ================= HELPERS ================= */
 
 function randomCell() {
     const cells = BOARD_SIZE / box;
@@ -41,10 +56,12 @@ function drawCircle(obj, color, glow) {
     ctx.shadowBlur = glow;
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.arc(obj.x + box/2, obj.y + box/2, box/2, 0, Math.PI * 2);
+    ctx.arc(obj.x + box / 2, obj.y + box / 2, box / 2, 0, Math.PI * 2);
     ctx.fill();
     ctx.shadowBlur = 0;
 }
+
+/* ================= GAME ================= */
 
 function startGame() {
     snake = [{ x: 10 * box, y: 10 * box }];
@@ -96,30 +113,28 @@ function drawGame() {
 
     if (head.x === food.x && head.y === food.y) {
         score++;
-        scoreEl.innerText = score;
-
-        if (score > bestScore) {
-            bestScore = score;
-            bestEl.innerText = bestScore;
-        }
-
+        updateBest();
         food = randomCell();
+
         if (score % 5 === 0) spawnBonus();
         if (score % 3 === 0) bomb = randomCell();
     }
     else if (bonus && head.x === bonus.x && head.y === bonus.y) {
         score += 2;
-        scoreEl.innerText = score;
         snake.push({}, {});
         bonus = null;
         clearTimeout(bonusTimer);
+        updateBest();
     }
     else {
         snake.pop();
     }
 
+    scoreEl.innerText = score;
     snake.unshift(head);
 }
+
+/* ================= BONUS ================= */
 
 function spawnBonus() {
     bonus = randomCell();
@@ -127,16 +142,31 @@ function spawnBonus() {
     bonusTimer = setTimeout(() => bonus = null, 5000);
 }
 
+/* ================= SCORE ================= */
+
+function updateBest() {
+    if (score > bestScore) {
+        bestScore = score;
+        bestEl.innerText = bestScore;
+
+        users[currentUser].bestScore = bestScore;
+        localStorage.setItem("snake_users", JSON.stringify(users));
+    }
+}
+
+/* ================= GAME OVER ================= */
+
 function endGame() {
     clearInterval(gameLoop);
-    localStorage.setItem("snake_best", bestScore);
 
     finalScoreText.innerText = score;
     finalBestText.innerText = bestScore;
     gameOverModal.style.display = "flex";
 }
-document.addEventListener("keydown", e => {
 
+/* ================= CONTROLS ================= */
+
+document.addEventListener("keydown", e => {
     if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key)) {
         e.preventDefault();
     }
@@ -160,6 +190,9 @@ document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
     if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
+
+/* ================= BUTTONS ================= */
+
 document.getElementById("start-btn").onclick = () => {
     startScreen.style.display = "none";
     gameContainer.style.display = "block";
@@ -179,4 +212,10 @@ document.getElementById("home-btn").onclick = () => location.reload();
 pauseBtn.onclick = () => {
     paused = !paused;
     pauseBtn.innerText = paused ? "▶️ ادامه" : "⏸ توقف";
+};
+/* ================= LOGOUT ================= */
+
+document.getElementById("logout-btn").onclick = () => {
+    localStorage.removeItem("currentUser");
+    location.href = "login.html";
 };
