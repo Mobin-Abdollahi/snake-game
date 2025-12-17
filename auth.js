@@ -9,26 +9,18 @@ function login() {
 
   let users = JSON.parse(localStorage.getItem("snake_users")) || {};
 
-  // اگر کاربر وجود نداشت → ثبت‌نام
   if (!users[username]) {
     users[username] = {
       password: password,
       bestScore: 0
     };
   } else {
-    // اگر وجود داشت → بررسی پسورد
     if (users[username].password !== password) {
       alert("پسورد اشتباه است");
       return;
     }
   }
-
-  // ذخیره اطلاعات
   localStorage.setItem("snake_users", JSON.stringify(users));
-
-  // ست کردن کاربر فعال
   localStorage.setItem("currentUser", username);
-
-  // رفتن به بازی
   window.location.href = "index.html";
 }

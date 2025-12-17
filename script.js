@@ -1,17 +1,11 @@
-/* ================= AUTH ================= */
-
 const currentUser = localStorage.getItem("currentUser");
 if (!currentUser) location.href = "login.html";
 
 let users = JSON.parse(localStorage.getItem("snake_users")) || {};
 let bestScore = users[currentUser]?.bestScore || 0;
 
-/* ================= CONSTANTS ================= */
-
 const BOARD_SIZE = 480;
 const box = 20;
-
-/* ================= ELEMENTS ================= */
 
 const startScreen = document.getElementById("start-screen");
 const gameContainer = document.getElementById("game-container");
@@ -28,8 +22,6 @@ const gameOverModal = document.getElementById("game-over-modal");
 const finalScoreText = document.getElementById("final-score");
 const finalBestText = document.getElementById("final-best");
 
-/* ================= GAME STATE ================= */
-
 let snake = [];
 let direction = "RIGHT";
 let score = 0;
@@ -40,8 +32,6 @@ let gameLoop;
 bestEl.innerText = bestScore;
 
 let food, bonus = null, bomb = null;
-
-/* ================= HELPERS ================= */
 
 function randomCell() {
     const cells = BOARD_SIZE / box;
@@ -60,8 +50,6 @@ function drawCircle(obj, color, glow) {
     ctx.fill();
     ctx.shadowBlur = 0;
 }
-
-/* ================= GAME ================= */
 
 function startGame() {
     snake = [{ x: 10 * box, y: 10 * box }];
@@ -134,15 +122,11 @@ function drawGame() {
     snake.unshift(head);
 }
 
-/* ================= BONUS ================= */
-
 function spawnBonus() {
     bonus = randomCell();
     clearTimeout(bonusTimer);
     bonusTimer = setTimeout(() => bonus = null, 5000);
 }
-
-/* ================= SCORE ================= */
 
 function updateBest() {
     if (score > bestScore) {
@@ -154,8 +138,6 @@ function updateBest() {
     }
 }
 
-/* ================= GAME OVER ================= */
-
 function endGame() {
     clearInterval(gameLoop);
 
@@ -163,8 +145,6 @@ function endGame() {
     finalBestText.innerText = bestScore;
     gameOverModal.style.display = "flex";
 }
-
-/* ================= CONTROLS ================= */
 
 document.addEventListener("keydown", e => {
     if (["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"," "].includes(e.key)) {
@@ -191,8 +171,6 @@ document.addEventListener("keydown", e => {
     if (e.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
 });
 
-/* ================= BUTTONS ================= */
-
 document.getElementById("start-btn").onclick = () => {
     startScreen.style.display = "none";
     gameContainer.style.display = "block";
@@ -213,7 +191,6 @@ pauseBtn.onclick = () => {
     paused = !paused;
     pauseBtn.innerText = paused ? "▶️ ادامه" : "⏸ توقف";
 };
-/* ================= LOGOUT ================= */
 
 document.getElementById("logout-btn").onclick = () => {
     localStorage.removeItem("currentUser");

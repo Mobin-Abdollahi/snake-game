@@ -111,8 +111,6 @@ canvas {
 .home {
     background: linear-gradient(45deg, #4bff73, #00c94b);
 }
-/* ---------- LOGIN PAGE ---------- */
-
 .login-body {
   margin: 0;
   height: 100vh;
@@ -165,9 +163,8 @@ canvas {
   margin-top: 10px;
 }
 #logout-btn {
-    display: block;           /* مهم: باعث میشه margin کار کنه */
-    margin: 28px auto 0;      /* زیر دوتا دکمه + وسط‌چین */
-
+    display: block;           
+    margin: 28px auto 0;     
     padding: 10px 22px;
 
     background: linear-gradient(135deg, #ff3b3b, #b31217);
@@ -189,8 +186,6 @@ canvas {
     transition: all 0.25s ease;
 }
 
-
-/* هاور نرم، گیمینگ */
 #logout-btn:hover {
     transform: translateY(-2px);
     box-shadow:
@@ -198,7 +193,6 @@ canvas {
         0 0 14px rgba(255, 59, 59, 0.35);
 }
 
-/* کلیک */
 #logout-btn:active {
     transform: translateY(0);
     box-shadow:
